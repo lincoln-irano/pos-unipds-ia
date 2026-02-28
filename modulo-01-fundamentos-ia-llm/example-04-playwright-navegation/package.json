@@ -1,0 +1,16 @@
+{
+  "name": "example-04-playwright-navegation",
+  "version": "1.0.0",
+  "description": "Este script abre a página do palestrante em Sessionize, tenta selecionar conteúdo em Português, procura uma sessão com \"javascript\" no título (em português) e preenche o formulário do Google (sem submeter). Gera um snapshot `filled_form_snapshot.png`.",
+  "main": "fill_form.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}
