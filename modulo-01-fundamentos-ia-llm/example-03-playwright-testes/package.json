@@ -1,0 +1,11 @@
+{
+  "name": "example-03-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test --reporter=html"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.38.0"
+  }
+}
