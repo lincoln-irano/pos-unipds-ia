@@ -23,29 +23,22 @@ async function main(): Promise<void> {
     console.log('═'.repeat(60));
     console.log('\nDigite suas mensagens abaixo. Digite "exit" para sair.\n');
 
-    const { graph, memoryService } = await buildGraph();
+    const { graph, preferencesService } = await buildGraph();
 
     const { userId } = parseArgs();
-    const threadId = userId ? `user-${userId}` : `user-${Date.now()}`;
+    const actualUserId = userId || 'anonymous';
+    const threadId = `${actualUserId}-${Date.now()}`;
     const config = {
       configurable: { thread_id: threadId },
-      context: { userId: threadId }
+      context: { userId: actualUserId }
     };
 
-    if (userId) {
-      console.log(`👤 Usuário: ${userId}`);
-    }
-    console.log(`📝 ID da Sessão: ${threadId}\n`);
+    console.log(`👤 Usuário: ${actualUserId}`);
+    console.log(`💬 Thread da Conversa: ${threadId}\n`);
 
-    const namespace = ['memories', threadId];
-    let userContext: string | undefined;
-
-    if (memoryService.store) {
-      const existingMemories = await memoryService.store.search(namespace, { limit: 10 });
-      if (existingMemories?.length > 0) {
-        userContext = existingMemories.map((m: any) => m.value.data).join('\n');
-        console.log(`📚 Informações do usuário carregadas:\n${userContext}\n`);
-      }
+    const userContext = await preferencesService.getBasicInfo(actualUserId);
+    if (userContext) {
+      console.log(`📚 Informações do usuário carregadas:\n${userContext}\n`);
     }
 
     try {
@@ -57,7 +50,7 @@ async function main(): Promise<void> {
         {
           messages: [new HumanMessage(initialMessage)],
           userContext,
-          userId: threadId,
+          userId: actualUserId,
         },
         config
       );
@@ -81,7 +74,7 @@ async function main(): Promise<void> {
         const result = await graph.invoke(
           {
             messages: [new HumanMessage(userInput)],
-            userId: threadId,
+            userId: actualUserId,
           },
           config
         );
