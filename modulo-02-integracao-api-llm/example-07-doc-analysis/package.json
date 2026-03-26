@@ -1,0 +1,38 @@
+{
+  "name": "example-07-doc-analysis",
+  "version": "1.0.0",
+  "description": "- A Comprehensive Overview of Large Language Models: https://arxiv.org/pdf/2307.06435",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file .env src/index.ts",
+    "dev": "node --watch --inspect --env-file .env src/index.ts",
+    "test": "node --env-file .env --test tests/**/*.test.ts",
+    "test:dev": "node --inspect --env-file .env --test --watch tests/**/*.test.ts",
+    "langgraph:serve": "npx @langchain/langgraph-cli dev"
+  },
+  "keywords": [
+    "langchain",
+    "document-qa",
+    "pdf-analysis",
+    "openrouter"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fastify/multipart": "^9.0.3",
+    "@langchain/community": "^1.1.17",
+    "@langchain/core": "^1.1.27",
+    "@langchain/openai": "^1.2.9",
+    "fastify": "^5.7.4",
+    "form-data": "^4.0.1",
+    "langchain": "^1.2.25"
+  },
+  "devDependencies": {
+    "@types/form-data": "^2.5.0",
+    "@types/node": "^24.10.12"
+  },
+  "engines": {
+    "node": ">=24.10.0"
+  }
+}
